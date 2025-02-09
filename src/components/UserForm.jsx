@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
@@ -26,6 +27,7 @@ function UserForm({ open, handleClose, user, onSubmit }) {
       avatar: "https://i.pravatar.cc/150",
     }
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -53,9 +55,11 @@ function UserForm({ open, handleClose, user, onSubmit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (user) {
       onSubmit(formData);
+      setIsLoading(false);
     } else {
       try {
         const res = await fetch("https://reqres.in/api/users", {
@@ -76,6 +80,8 @@ function UserForm({ open, handleClose, user, onSubmit }) {
       } catch (error) {
         console.error("Error add user", error);
         toast.error("Terjadi kesalahan saat menambahkan user.");
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -176,6 +182,7 @@ function UserForm({ open, handleClose, user, onSubmit }) {
               </FormControl>
               <Button
                 type="submit"
+                disabled={isLoading}
                 variant="contained"
                 fullWidth
                 size="large"
@@ -190,7 +197,11 @@ function UserForm({ open, handleClose, user, onSubmit }) {
                   padding: "12px 0",
                 }}
               >
-                Simpan
+                {isLoading ? (
+                  <CircularProgress size={24} sx={{ color: "#010101" }} />
+                ) : (
+                  "Simpan"
+                )}
               </Button>
             </Box>
           </CardContent>
