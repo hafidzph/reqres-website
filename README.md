@@ -18,10 +18,12 @@ React-based website application for managing user data using API from https://re
 ## Tech Stack
 
 - React
+- Vite
 - Tailwind CSS
 - React Router
 - Material UI
 - React Hot Toast
+- Reqres (API)
 
 
 ## Installation
