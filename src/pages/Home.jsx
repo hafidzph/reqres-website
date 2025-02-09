@@ -127,71 +127,82 @@ function Home() {
       >
         Add User
       </Button>
-      <TableContainer component={Paper} style={{ backgroundColor: "#1E1E1E" }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Avatar
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Name
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Email
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Job
-              </TableCell>
-              <TableCell style={{ color: "white", fontWeight: "bold" }}>
-                Actions
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow
-                key={user.id}
-                style={{ "&:hover": { backgroundColor: "#2C2C2C" } }}
-              >
-                <TableCell>
-                  <Avatar
-                    src={user.avatar}
-                    alt={`${user.first_name} ${user.last_name}`}
-                  />
+      {users.length === 0 ? (
+        <span className="text-white text-center text-2xl">
+          Tidak ada data user
+        </span>
+      ) : (
+        <TableContainer
+          component={Paper}
+          style={{ backgroundColor: "#1E1E1E" }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ color: "white", fontWeight: "bold" }}>
+                  Avatar
                 </TableCell>
-                <TableCell
-                  style={{ color: "#E0E0E0" }}
-                >{`${user.first_name} ${user.last_name}`}</TableCell>
-                <TableCell style={{ color: "#E0E0E0" }}>{user.email}</TableCell>
-                <TableCell style={{ color: "#E0E0E0" }}>
-                  {user.job ? user.job : "Others"}
+                <TableCell style={{ color: "white", fontWeight: "bold" }}>
+                  Name
                 </TableCell>
-                <TableCell>
-                  <IconButton
-                    onClick={() => handleDetailOpen(user)}
-                    style={{ color: "#4CAF50" }}
-                  >
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleOpen(user)}
-                    style={{ color: "#BB86FC" }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleDelete(user.id)}
-                    style={{ color: "#CF6679" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                <TableCell style={{ color: "white", fontWeight: "bold" }}>
+                  Email
+                </TableCell>
+                <TableCell style={{ color: "white", fontWeight: "bold" }}>
+                  Job
+                </TableCell>
+                <TableCell style={{ color: "white", fontWeight: "bold" }}>
+                  Actions
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow
+                  key={user.id}
+                  style={{ "&:hover": { backgroundColor: "#2C2C2C" } }}
+                >
+                  <TableCell>
+                    <Avatar
+                      src={user.avatar}
+                      alt={`${user.first_name} ${user.last_name}`}
+                    />
+                  </TableCell>
+                  <TableCell
+                    style={{ color: "#E0E0E0" }}
+                  >{`${user.first_name} ${user.last_name}`}</TableCell>
+                  <TableCell style={{ color: "#E0E0E0" }}>
+                    {user.email}
+                  </TableCell>
+                  <TableCell style={{ color: "#E0E0E0" }}>
+                    {user.job ? user.job : "Others"}
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      onClick={() => handleDetailOpen(user)}
+                      style={{ color: "#4CAF50" }}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => handleOpen(user)}
+                      style={{ color: "#BB86FC" }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => handleDelete(user.id)}
+                      style={{ color: "#CF6679" }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
 
       <UserForm
         open={open}
