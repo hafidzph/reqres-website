@@ -57,6 +57,16 @@ function UserForm({ open, handleClose, user, onSubmit }) {
     e.preventDefault();
     setIsLoading(true);
 
+    if (
+      !formData.first_name.trim() ||
+      !formData.last_name.trim() ||
+      !formData.email.trim()
+    ) {
+      toast.error("Inputan wajib diisi!");
+      setIsLoading(false);
+      return;
+    }
+
     if (user) {
       onSubmit(formData);
       setIsLoading(false);
@@ -151,6 +161,7 @@ function UserForm({ open, handleClose, user, onSubmit }) {
                 fullWidth
                 margin="normal"
                 label="Email"
+                type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
